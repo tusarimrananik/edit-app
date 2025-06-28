@@ -1,0 +1,31 @@
+generator client {
+  provider = "prisma-client-js"
+  envFile  = ".env.local"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          String  @id @default(uuid())
+  name        String
+  accessToken String  @unique
+  balance     Int     @default(0)
+  edits       Int     @default(0)
+  canEdit     Boolean @default(false)
+}
+
+model Browsers {
+  name     String  @unique
+  isActive Boolean @default(false)
+}
+
+model MultipleStep {
+  id           Int     @id @default(autoincrement())
+  step         String?
+  payment      String?
+  profile_pic  String?
+  profile_name String?
+}
